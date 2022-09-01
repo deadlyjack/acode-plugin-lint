@@ -1,14 +1,8 @@
 const path = require('path');
-const fs = require('fs');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = (env, options) => {
   const { mode = 'development' } = options;
   const rules = [
-    {
-      test: /\.hbs$/,
-      use: ['raw-loader'],
-    },
     {
       test: /\.m?js$/,
       use: {
@@ -18,25 +12,6 @@ module.exports = (env, options) => {
         },
       },
     },
-    {
-      test: /\.(sa|sc|c)ss$/,
-      use: [
-        {
-          loader: MiniCssExtractPlugin.loader,
-          options: {
-            publicPath: '../../',
-          },
-        },
-        {
-          loader: 'css-loader',
-          options: {
-            url: false,
-          },
-        },
-        'postcss-loader',
-        'sass-loader',
-      ],
-    }
   ];
 
   const main = {
@@ -52,11 +27,7 @@ module.exports = (env, options) => {
     module: {
       rules,
     },
-    plugins: [
-      new MiniCssExtractPlugin({
-        filename: '[name].css',
-      }),
-    ],
+    plugins: [],
   };
 
   return [main];

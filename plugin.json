@@ -1,14 +1,27 @@
 {
-  "id": "acode.plugin",
-  "name": "Plugin",
+  "id": "acode.plugin.lint",
+  "name": "Lint (Check Errors)",
   "main": "dist/main.js",
+  "type": "pro",
   "version": "1.0.0",
   "readme": "readme.md",
   "icon": "icon.png",
-  "files": [],
+  "files": [
+    "workers/worker-base.js",
+    "workers/worker-coffee.js",
+    "workers/worker-css.js",
+    "workers/worker-html.js",
+    "workers/worker-javascript.js",
+    "workers/worker-json.js",
+    "workers/worker-lua.js",
+    "workers/worker-php.js",
+    "workers/worker-xml.js",
+    "workers/worker-xquery.js",
+    "workers/worker-yaml.js"
+  ],
   "author": {
-    "name": "",
-    "email": "",
-    "github": ""
+    "name": "Ajit Kumar",
+    "email": "me@ajitkumar.dev",
+    "github": "https://github.com/deadlyjack"
   }
 }
