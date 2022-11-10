@@ -2,7 +2,7 @@
   "id": "acode.plugin.lint",
   "name": "Lint (Check Errors)",
   "main": "dist/main.js",
-  "type": "pro",
+  "type": "free",
   "version": "1.0.0",
   "readme": "readme.md",
   "icon": "icon.png",
