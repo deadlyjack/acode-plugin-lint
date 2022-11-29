@@ -1,4 +1,4 @@
-# acode-plugin-lint
+# Acode Lint
 
 Check sytax error in your code.
 
