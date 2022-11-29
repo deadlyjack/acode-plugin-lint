@@ -2,7 +2,7 @@
   "id": "acode.plugin.lint",
   "name": "Lint",
   "main": "dist/main.js",
-  "type": "pro",
+  "type": "free",
   "version": "1.0.1",
   "readme": "readme.md",
   "icon": "icon.png",
