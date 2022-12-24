@@ -6,7 +6,7 @@ Check sytax error in your code.
 
 ## Supported languages
 
-- Cofee
+- Coffee
 - CSS
 - HTML
 - Javascript
