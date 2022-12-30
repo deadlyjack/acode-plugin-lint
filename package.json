@@ -20,7 +20,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "build-release": "webpack --mode production & node .vscode/pack-zip",
+    "build-release": "webpack --mode production",
     "start-dev": "node .vscode/start-dev"
   },
   "browserslist": [

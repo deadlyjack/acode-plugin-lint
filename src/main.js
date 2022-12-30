@@ -3,6 +3,7 @@ import plugin from '../plugin.json';
 const { WorkerClient } = ace.require('ace/worker/worker_client');
 const net = ace.require('ace/lib/net');
 const config = ace.require('ace/config');
+const appSettings = acode.require('settings');
 
 class AcodePlugin {
   baseUrl = '';

@@ -4,8 +4,12 @@ const jszip = require('jszip');
 
 const iconFile = path.join(__dirname, '../icon.png');
 const pluginJSON = path.join(__dirname, '../plugin.json');
-const readmeDotMd = path.join(__dirname, '../readme.md');
 const distFolder = path.join(__dirname, '../dist');
+let readmeDotMd = path.join(__dirname, '../readme.md');
+
+if (!fs.existsSync(readmeDotMd)) {
+  readmeDotMd = path.join(__dirname, '../README.md');
+}
 
 // create zip file of dist folder
 
