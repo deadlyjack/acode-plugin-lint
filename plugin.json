@@ -3,7 +3,7 @@
   "name": "Lint",
   "main": "dist/main.js",
   "type": "free",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "readme": "readme.md",
   "icon": "icon.png",
   "files": [
