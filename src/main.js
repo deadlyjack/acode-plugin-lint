@@ -7,9 +7,6 @@ const appSettings = acode.require('settings');
 
 class AcodePlugin {
   baseUrl = '';
-  settings = {
-    esversion: 11,
-  };
 
   constructor() {
     this.startWorker = this.startWorker.bind(this);
@@ -17,13 +14,6 @@ class AcodePlugin {
 
   async init() {
     const { editor } = editorManager;
-    const settings = appSettings.value[plugin.id];
-    if (settings) {
-      this.settings = settings;
-    } else {
-      appSettings.value[plugin.id] = this.settings;
-      appSettings.update(false);
-    }
 
     editor.renderer.setMargin(0, 0, 0, 0);
     editor.on('changeMode', this.startWorker);
@@ -59,9 +49,6 @@ class AcodePlugin {
     if (!mode) return;
     const modeName = mode.$id.split('/').pop();
     await this.createWorker(modeName, session, mode);
-    // if (mode.modes) {
-    //   mode.modes.forEach((mode) => this.initWorker(session, mode));
-    // }
   }
 
   async createWorker(modeName, session, mode) {
@@ -73,7 +60,7 @@ class AcodePlugin {
       const workerScript = `workers/worker-${modeName}.js`;
       const workerMode = `ace/mode/${modeName}_worker`;
       const script = acode.joinUrl(this.baseUrl, workerScript);
-      const workerClass = AcodePlugin.getWorkerCalss(modeName);
+      const workerClass = AcodePlugin.getWorkerClass(modeName);
       const worker = new WorkerClient(['ace'], workerMode, workerClass, script);
       worker.attachToDocument(session.getDocument());
       session.$worker = worker;
@@ -163,7 +150,7 @@ class AcodePlugin {
           const esversion = await acode.prompt('Enter esversion', defaultValue, 'number', {
             required: true,
           });
-          appSettings.value[plugin.id].esversion = esversion;
+          this.settings.esversion = esversion;
           appSettings.update();
           this.esversion = esversion;
         }
@@ -171,12 +158,41 @@ class AcodePlugin {
     ]
   }
 
+  get settings() {
+    const settings = appSettings.value[plugin.id];
+    if (!settings) {
+      appSettings.value[plugin.id] = { esversion: 11 };
+      appSettings.update(false);
+    }
+    return appSettings.value[plugin.id];
+  }
+
+  get settingsList() {
+    return [
+      {
+        key: 'esversion',
+        text: 'JShint esversion',
+        value: this.settings.esversion,
+        prompt: 'Enter esversion',
+        promptType: 'number',
+      }
+    ]
+  }
+
+  settingsCallback(key, value) {
+    if (key === 'esversion') {
+      this.esversion = value || 11;
+      this.settings.esversion = value;
+      appSettings.update();
+    }
+  }
+
   get esversion() {
     return this.settings?.esversion || 8;
   }
 
   set esversion(value) {
-    const worker = editorManager.session?.$woker;
+    const worker = editorManager.session?.$worker;
     if (!worker) return;
     worker.call("setOptions", [{ esversion: value }]);
   }
@@ -193,7 +209,7 @@ class AcodePlugin {
     }
   }
 
-  static getWorkerCalss(mode) {
+  static getWorkerClass(mode) {
     switch (mode) {
       case 'javascript':
         return 'JavaScriptWorker';
@@ -224,6 +240,9 @@ if (window.acode) {
     }
     acodePlugin.baseUrl = baseUrl;
     acodePlugin.init($page, cacheFile, cacheFileUrl);
+  }, {
+    list: acodePlugin.settingsList,
+    cb: acodePlugin.settingsCallback.bind(acodePlugin),
   });
   acode.setPluginUnmount(plugin.id, () => {
     acodePlugin.destroy();
