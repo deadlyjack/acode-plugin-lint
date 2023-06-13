@@ -12,8 +12,12 @@
     "@babel/preset-env": "^7.20.2",
     "babel-loader": "^9.1.0",
     "jszip": "^3.10.1",
+<<<<<<< HEAD
     "live-server": "^1.2.2",
     "webpack": "^5.75.0",
+=======
+    "webpack": "^5.76.0",
+>>>>>>> a522c433cf9f823aa13a5a5d8909a6894cc8505a
     "webpack-cli": "^5.0.1"
   },
   "scripts": {
