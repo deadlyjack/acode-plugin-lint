@@ -15,7 +15,14 @@ class AcodePlugin {
   async init() {
     const { editor } = editorManager;
 
-    editor.renderer.setMargin(0, 0, 0, 0);
+    if (BuildInfo.versionCode < 314) {
+      editor.renderer.setMargin(0, 0, 0, 0);
+    } else {
+      appSettings.update({
+        showAnnotations: true,
+      });
+    }
+
     editor.on('changeMode', this.startWorker);
     this.startWorker();
     this.#commands.forEach((command) => {
@@ -29,6 +36,13 @@ class AcodePlugin {
       editor.commands.removeCommand(command);
     });
     editor.off('changeMode', this.startWorker);
+    if (BuildInfo.versionCode < 314) {
+      editor.renderer.setMargin(0, 0, -16, 0);
+    } else {
+      appSettings.update({
+        showAnnotations: false,
+      });
+    }
   }
 
   async startWorker() {

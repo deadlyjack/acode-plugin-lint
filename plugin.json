@@ -3,10 +3,9 @@
   "name": "Lint",
   "main": "dist/main.js",
   "type": "free",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "readme": "readme.md",
   "icon": "icon.png",
-  "minVersionCode": "314",
   "author": {
     "name": "Ajit Kumar",
     "email": "me@ajitkumar.dev",
